@@ -3,10 +3,56 @@
 <head>
     <title>Web Ninja</title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
-    <meta name="author" content="">
+    <meta name="description" content="HTML5 game similar to Halfbrick's Fruit Ninja">
+    <meta name="keywords" content="web,ninja,enchantjs,enchant.js,juego,videogame,video,game,lavamade,epale,vaca,mariposa,digital,ensemble">
+    <meta name="author" content="La Vaca Mariposa Digital Ensemble">
     <meta charset="UTF-8">
+    <link href='http://fonts.googleapis.com/css?family=Caesar+Dressing' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="javascripts/Box2dWeb-2.1.a.3.js"></script>
+    <script type="text/javascript" src="javascripts/enchant.js"></script>
+    <script type="text/javascript" src="javascripts/plugins/box2d.enchant.js"></script> 
+    <script type="text/javascript">
+        var g_ImgBackgroundGameplay = "images/background_gameplay.jpg";
+        var g_ImgBackgroundGameOver = "images/background_gameover.png";
+        var g_ImgBomb               = "images/bomb.png";
+        var g_ImgFruits             = "images/fruits.png";
+        var g_ImgScore              = "images/score.png";
+        var g_ImgSplash             = "images/splash.png";
+        enchant();
+    </script>
+    <script type="text/javascript">
+    window.onload = function () {
+        var game = new Game(760,570);
+        game.fps = 60;
+        game.preload(
+            g_ImgBackgroundGameplay,
+            g_ImgBackgroundGameOver,
+            g_ImgBomb,
+            g_ImgFruits,
+            g_ImgScore,
+            g_ImgSplash
+        );
+        game.onload = function () {
+            var scene = new MainScene(game);
+            game.pushScene(scene);
+        };
+        game.start();
+    };
+    </script>
+    <script type="text/javascript" src="javascripts/main_scene.js"></script>
+    <style type="text/css">
+        body {
+            background: #000;
+            margin: 0;
+            padding: 0;
+        }
+        #enchant-stage {
+            padding: 0;
+            margin: 0 auto 0;
+            width: 760px;
+            height: 570px;
+        }
+    </style>
 </head>
 <body>
     <div id="enchant-stage"></div>
