@@ -26,7 +26,7 @@ var MainScene = Class.create(Scene, {
         this.addChild(background);
         scoreIcon.image = this.m_GameObj.assets[g_ImgScore];
         this.addChild(scoreIcon);
-        for (i = 0; i < 8; i++) {
+        for (i = 0; i < 3; i++) {
             this.m_LifeIcons[i] = new Sprite(50,50);
             this.m_LifeIcons[i].image = this.m_GameObj.assets[g_ImgScore];
             this.m_LifeIcons[i].x = this.m_GameObj.width - 50 * (i+1);
@@ -39,21 +39,11 @@ var MainScene = Class.create(Scene, {
         }
         this.addChild(this.m_LblScore);
         this.addEventListener(Event.ENTER_FRAME, this.update);
-        this.m_GroupIndex = 0;
     },
     update: function (evt) {
         if (this.m_GameObj.frame % this.m_GameObj.fps == 0) {
-            var fruit = new PhyCircleSprite(50, enchant.box2d.DYNAMIC_SPRITE,0.1,0.5,0.3,false);
-            fruit.image = this.m_GameObj.assets[g_ImgFruits];
-            fruit.x = this.m_GameObj.width/2 - fruit.width/2;
-            fruit.y = this.m_GameObj.height/2 - fruit.height/2;
-            fruit.applyImpulse(new b2Vec2(0,-5));
-            fruit.body.m_isSensor = true;
+            var fruit = new Fruit(this.m_GameObj);
             this.addChild(fruit);
-            fruit.addEventListener(Event.TOUCH_START, function (evt) {
-                //console.log("touch me :3");
-                this.scene.removeChild(this);
-            });
         }
         this.m_World.step(this.m_GameObj.fps);
     }
