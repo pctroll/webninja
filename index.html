@@ -33,15 +33,33 @@
             g_ImgSplash
         );
         game.onload = function () {
-            var scene = new MainScene(game);
-            game.pushScene(scene);
+            //var gameoverscene = new GameOverScene(game);
+            /*var mainscene = new MainScene(game);
+
+            game.pushScene(mainscene); */  
+            goToScene("over", game)        
+            //game.pushScene(gameoverscene);
         };
         game.start();
+    };
+    function goToScene(scene, gameObj) {
+        var newScene;
+        switch (scene) {
+            default:
+            case "main":
+                newScene = new MainScene(gameObj);
+                break;
+            case "over":
+                newScene = new GameOverScene(gameObj);
+                break;
+        }
+        gameObj.replaceScene(newScene);
     };
     </script>
     <script type="text/javascript" src="javascripts/splash.js"></script>
     <script type="text/javascript" src="javascripts/fruit.js"></script>
     <script type="text/javascript" src="javascripts/scene_main.js"></script>
+    <script type="text/javascript" src="javascripts/scene_gameover.js"></script>
     <style type="text/css">
         body {
             background: #000;
