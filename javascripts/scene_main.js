@@ -55,6 +55,7 @@ var MainScene = Class.create(Scene, {
             if (this.m_GameObj.frame % this.m_GameObj.fps == 0) {
                 var fruit = new Fruit(this.m_GameObj);
                 this.addChild(fruit);
+                this.m_FruitsList.push(fruit);
             }
             this.m_World.step(this.m_GameObj.fps);
             //We avoid the calling of zeroFill if the score hasn't changed
@@ -68,10 +69,12 @@ var MainScene = Class.create(Scene, {
     overlapFruits: function (evt) {
         var tmpList = new Array();
         for (i = 0; i < this.m_FruitsList.length; i++) {
-            this.removeChild(this.m_FruitsList[i]);
-            if (this.m_FruitsList[i].m_IsAlive) {
-                this.addChild(this.m_FruitsList[i]);
-                tmpList.push(this.m_FruitsList[i]);
+            if (this.m_FruitsList[i] != null) {
+                this.removeChild(this.m_FruitsList[i]);
+                if (this.m_FruitsList[i].m_IsAlive) {
+                    this.addChild(this.m_FruitsList[i]);
+                    tmpList.push(this.m_FruitsList[i]);
+                }    
             }
         }
         this.m_FruitsList = tmpList;

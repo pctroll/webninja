@@ -25,12 +25,11 @@ var Fruit = Class.create(PhyCircleSprite, {
         this.scene.addChild(splash);
         this.m_IsAlive = false;
         this.scene.m_TempScore = this.scene.m_Score + 10;
-        //this.scene.overlapFruits();
+        this.scene.overlapFruits();
     },
     update: function (evt) {
         var vel = this.velocity.x + " " + this.velocity.y;
-        if (this.y > this.m_GameObj.height && this.velocity.y > 10) {         
-            //this.m_IsAlive = false;
+        if (this.y > this.m_GameObj.height && this.velocity.y > 10) {
             this.hasEscaped = true;
         }
         else if (
@@ -38,7 +37,6 @@ var Fruit = Class.create(PhyCircleSprite, {
             (this.x < 0 && this.velocity.x < -10)
             )
         { 
-            //this.m_IsAlive = false;
             this.hasEscaped = true;
         }
 

@@ -15,15 +15,11 @@ var GameOverScene = Class.create(Scene, {
         this.m_LblScore.color = "#ffde00";
         this.m_World = new PhysicsWorld(0.0, 9.8);
         var background = new Sprite(760,570);
-        var backgroundOverlay = new Sprite(760,570);
         var scoreIcon = new Sprite(50,50);
         scoreIcon.x = 5;
         scoreIcon.y = 5;
         background.image = this.m_GameObj.assets[g_ImgBackgroundGameplay];
-        backgroundOverlay.image = this.m_GameObj.assets[g_ImgBackgroundGameOver];
-        backgroundOverlay.opacity = 0.75;
         this.addChild(background);
-        this.addChild(backgroundOverlay);
         scoreIcon.image = this.m_GameObj.assets[g_ImgScore];
         this.addChild(scoreIcon);
         for (i = 0; i < 3; i++) {
@@ -36,20 +32,29 @@ var GameOverScene = Class.create(Scene, {
         }
         this.addChild(this.m_LblScore);
 
+        var backgroundOverlay = new Sprite(760,570);
+        backgroundOverlay.image = this.m_GameObj.assets[g_ImgBackgroundGameOver];
+        backgroundOverlay.image
+        backgroundOverlay.opacity = 0.6; 
+        var imgGameOver = new Sprite(760,570);
+        imgGameOver.image = this.m_GameObj.assets[g_ImgGameOver];
+        imgGameOver.touchEnabled = false;
+
         this.m_LblPlay = new Label("");
-        this.m_LblPlay.font = "42px Caesar Dressing";
-        this.m_LblPlay.text = "Play again?";
-        this.m_LblPlay.x = this.m_GameObj.width / 2 - 100;
-        this.m_LblPlay.y = this.m_GameObj.height / 2 - 25;
-        this.m_LblPlay.color = "#ffde00";
-        this.addChild(this.m_LblPlay);
+        this.m_LblPlay.font = "28px Caesar Dressing";
+        this.m_LblPlay.text = "Retry";
+        this.m_LblPlay.width = this.m_GameObj.width;
+        this.m_LblPlay.textAlign = "center";
+        this.m_LblPlay.x = 0;
+        this.m_LblPlay.y = this.m_GameObj.height - 134;
+        this.m_LblPlay.color = "#669900";
+        this.m_LblPlay.touchEnabled = false;
 
         this.playIcon = new Sprite(100,100);
         this.playIcon.x = this.m_GameObj.width / 2 - 50;
         this.playIcon.y = this.m_GameObj.height / 2 + 50;
         this.playIcon.image = this.m_GameObj.assets[g_ImgFruits];
         this.playIcon.frame = 0;
-        this.addChild(this.playIcon);
         
         this.m_WantToPlay = false;
 
@@ -62,9 +67,13 @@ var GameOverScene = Class.create(Scene, {
             this.scene.removeChild(this.scene.playIcon);
         });
 
+        this.addChild(backgroundOverlay);
+        this.addChild(imgGameOver);
+        this.addChild(this.m_LblPlay);
+        this.addChild(this.playIcon); 
+
         this.lifeTimer = 0;
         this.lifeTimerLimit = this.m_GameObj.fps * 10;
-
         this.addEventListener(Event.ENTER_FRAME, this.update);
     },
     update: function (evt) {

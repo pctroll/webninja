@@ -13,6 +13,7 @@ var Splash = Class.create(Sprite, {
         this.m_DropSpeedSlow = 4;
         this.m_DropSpeedFast = 2;
         this.m_DropTime = 600;
+        this.rotation = Math.floor(Math.random() * 320);
     },
 
     update: function (evt) {
