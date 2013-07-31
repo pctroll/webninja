@@ -12,7 +12,7 @@ var Fruit = Class.create(PhyCircleSprite, {
         this.y = this.m_GameObj.height;
         this.angularVelocity = randAng[rand];
         this.body.m_isSensor = true;
-        this.isAlive = true;
+        this.m_IsAlive = true;
         this.hasEscaped = false;
         this.applyImpulse(new b2Vec2((Math.random()*3+5)*randImp[rand],(Math.random()*4+10)*-1));
         this.addEventListener(Event.TOUCH_START, this.destroy);
@@ -21,14 +21,16 @@ var Fruit = Class.create(PhyCircleSprite, {
     destroy: function (evt) {
         var x = this.x;
         var y = this.y;
-        var splash = new Splash(this.m_GameObj,x,y);
+        var splash = new Splash(this.m_GameObj,x,y,this.frame);
         this.scene.addChild(splash);
-        this.isAlive = false;
+        this.m_IsAlive = false;
+        this.scene.m_TempScore = this.scene.m_Score + 10;
+        //this.scene.overlapFruits();
     },
     update: function (evt) {
         var vel = this.velocity.x + " " + this.velocity.y;
         if (this.y > this.m_GameObj.height && this.velocity.y > 10) {         
-            //this.isAlive = false;
+            //this.m_IsAlive = false;
             this.hasEscaped = true;
         }
         else if (
@@ -36,20 +38,17 @@ var Fruit = Class.create(PhyCircleSprite, {
             (this.x < 0 && this.velocity.x < -10)
             )
         { 
-            //this.isAlive = false;
+            //this.m_IsAlive = false;
             this.hasEscaped = true;
         }
 
         if (this.hasEscaped) {
             this.scene.m_Lives -= 1;
-
             if (this.scene.m_Lives >= 0)
                 this.scene.m_LifeIcons[this.scene.m_Lives].frame = 2;
-
-            this.scene.removeChild(this);
+            this.m_IsAlive = false;
         }
-        else if (!this.isAlive) {
-            this.scene.m_TempScore = this.scene.m_Score + 10;
+        if (!this.m_IsAlive) {  
             this.scene.removeChild(this);
         }
     }

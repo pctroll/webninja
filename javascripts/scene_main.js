@@ -6,6 +6,8 @@ function zeroFill ( number, width ) {
     return number + ""; // always return a string
 }
 
+var g_Score = 0;
+
 var MainScene = Class.create(Scene, {
     initialize: function (gameObj) {
         Scene.apply(this);
@@ -20,6 +22,7 @@ var MainScene = Class.create(Scene, {
         this.m_LblScore.x = 57;
         this.m_LblScore.color = "#ffde00";
         this.m_World = new PhysicsWorld(0.0, 9.8);
+        this.m_FruitsList = new Array();
         var background = new Sprite(760,570);
         var scoreIcon = new Sprite(50,50);
         scoreIcon.x = 5;
@@ -31,13 +34,10 @@ var MainScene = Class.create(Scene, {
         for (i = 0; i < 3; i++) {
             this.m_LifeIcons[i] = new Sprite(50,50);
             this.m_LifeIcons[i].image = this.m_GameObj.assets[g_ImgScore];
-            this.m_LifeIcons[i].x = this.m_GameObj.width - 50 * (i+1);
+            this.m_LifeIcons[i].x = 550 + 50 * (i+1);
             this.m_LifeIcons[i].y = 5
             this.m_LifeIcons[i].frame = 1;
             this.addChild(this.m_LifeIcons[i]);
-            this.m_LifeIcons[i].addEventListener(Event.TOUCH_START, function (e) {
-                console.log(this.x);
-            });
         }
         this.addChild(this.m_LblScore);
         this.addEventListener(Event.ENTER_FRAME, this.update);
@@ -47,10 +47,7 @@ var MainScene = Class.create(Scene, {
         if (this.m_Lives == 0)
         {
             //GameOver
-            console.log("GAME OVER");
-            //var scene = new MainScene(game);
-            //this.m_GameObj.popScene(this);
-            //this.m_GameObj.replaceScene(new GameOverScene(this.m_GameObj));
+            g_Score = this.m_Score;
             goToScene("over", this.m_GameObj);
         }
         else
@@ -60,7 +57,6 @@ var MainScene = Class.create(Scene, {
                 this.addChild(fruit);
             }
             this.m_World.step(this.m_GameObj.fps);
-
             //We avoid the calling of zeroFill if the score hasn't changed
             if (this.m_Score != this.m_TempScore)
             {
@@ -68,6 +64,16 @@ var MainScene = Class.create(Scene, {
                 this.m_LblScore.text = zeroFill(this.m_Score,3);
             }
         }
-
+    },
+    overlapFruits: function (evt) {
+        var tmpList = new Array();
+        for (i = 0; i < this.m_FruitsList.length; i++) {
+            this.removeChild(this.m_FruitsList[i]);
+            if (this.m_FruitsList[i].m_IsAlive) {
+                this.addChild(this.m_FruitsList[i]);
+                tmpList.push(this.m_FruitsList[i]);
+            }
+        }
+        this.m_FruitsList = tmpList;
     }
 });

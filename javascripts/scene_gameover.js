@@ -1,17 +1,11 @@
-/*function zeroFill ( number, width ) {
-    width -= number.toString().length;
-    if ( width > 0 ) {
-        return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
-    }
-    return number + ""; // always return a string
-}*/
+
 
 var GameOverScene = Class.create(Scene, {
     initialize: function (gameObj) {
         Scene.apply(this);
         this.m_GameObj = gameObj;
         this.m_LifeIcons = Array();
-        this.m_Score = 0;
+        this.m_Score = g_Score;
         this.m_TempScore = 0;
         this.m_Lives = 3;
         this.m_LblScore = new Label("");
@@ -35,13 +29,10 @@ var GameOverScene = Class.create(Scene, {
         for (i = 0; i < 3; i++) {
             this.m_LifeIcons[i] = new Sprite(50,50);
             this.m_LifeIcons[i].image = this.m_GameObj.assets[g_ImgScore];
-            this.m_LifeIcons[i].x = this.m_GameObj.width - 50 * (i+1);
+            this.m_LifeIcons[i].x = 550 + 50 * (i+1);
             this.m_LifeIcons[i].y = 5
-            this.m_LifeIcons[i].frame = 1;
+            this.m_LifeIcons[i].frame = 2;
             this.addChild(this.m_LifeIcons[i]);
-            this.m_LifeIcons[i].addEventListener(Event.TOUCH_START, function (e) {
-                console.log(this.x);
-            });
         }
         this.addChild(this.m_LblScore);
 
