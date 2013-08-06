@@ -14,7 +14,7 @@ var Fruit = Class.create(PhyCircleSprite, {
         this.body.m_isSensor = true;
         this.m_IsAlive = true;
         this.hasEscaped = false;
-        this.applyImpulse(new b2Vec2((Math.random()*3+5)*randImp[rand],(Math.random()*4+10)*-1));
+        this.applyImpulse(new b2Vec2((Math.random()*4+5)*randImp[rand],(Math.random()*5+10)*-1));
         this.addEventListener(Event.TOUCH_START, this.destroy);
         this.addEventListener(Event.ENTER_FRAME, this.update);
     },
