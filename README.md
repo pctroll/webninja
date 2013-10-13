@@ -16,5 +16,5 @@ Programming
 
 Image credits
 -------------
-[Martin Berube](http://www.iconarchive.com/show/food-icons-by-martin-berube.html)
-[DesignContest](http://www.iconarchive.com/show/casino-icons-by-designcontest.html)
+* [Martin Berube](http://www.iconarchive.com/show/food-icons-by-martin-berube.html)
+* [DesignContest](http://www.iconarchive.com/show/casino-icons-by-designcontest.html)
